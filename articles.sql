@@ -75,3 +75,15 @@ INSERT INTO journaux VALUES('GNU/Linux Magazine','Éditions Diamond');
 INSERT INTO journaux VALUES('GNU/Linux Pratique','Éditions Diamond');
 INSERT INTO journaux VALUES('MISC','Éditions Diamond');
 INSERT INTO journaux VALUES('Hackable Magazine','Éditions Diamond');
+
+INSERT INTO categories VALUES('Développement');
+INSERT INTO categories VALUES('Système');
+INSERT INTO categories VALUES('Outils');
+INSERT INTO categories VALUES('Réglementation');
+INSERT INTO categories VALUES('Sécurité');
+INSERT INTO categories VALUES('Electronique');
+
+INSERT INTO auteurs(nom,prenom) VALUES('Auverlot','Olivier');
+INSERT INTO auteurs(nom,prenom) VALUES('Bera','Clément');
+INSERT INTO auteurs(nom,prenom) VALUES('Cassou','Damien');
+INSERT INTO auteurs(nom,prenom) VALUES('Delplanque','Julien');
