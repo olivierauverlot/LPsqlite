@@ -3,17 +3,21 @@
 -- Base articles.sql pour SQLite
 -- Auteur: Olivier Auverlot
 --
+-- sqlite3 articles.db < articles.sql
+--
+-- Activation nécessaire pragma foreign_keys = ON
+--
 
 CREATE TABLE articles(
-	cle INT PRIMARY KEY AUTOINCREMENT NOT NULL,
+	cle INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	titre TEXT NOT NULL CHECK (length(trim(titre)) > 0),
-	cle_categorie TEXT NOT NULL,
+	cle_categorie TEXT NOT NULL DEFAULT 'Divers',
 	cle_numero INT NOT NULL,
 	page_debut INT NOT NULL,
 	page_fin INT NOT NULL,
 	
-	CHECK (page_debut > 0 anf page_fin > page_debut),
-	FOREIGN KEY(cle_categorie) REFERENCES categories(categorie) ON DELETE SET DEFAULT 'Divers',
+	CHECK (page_debut > 0 and page_fin > page_debut),
+	FOREIGN KEY(cle_categorie) REFERENCES categories(categorie) ON DELETE SET DEFAULT,
 	FOREIGN KEY(cle_categorie) REFERENCES categories(categorie) ON UPDATE CASCADE,
 	FOREIGN KEY(cle_numero) REFERENCES numeros(cle) ON DELETE RESTRICT
 );
@@ -24,7 +28,7 @@ CREATE TABLE categories(
 );
 
 CREATE TABLE numeros(
-	cle INT PRIMARY KEY AUTOINCREMENT NOT NULL,
+	cle INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	cle_journal TEXT NOT NULL,
 	numero_journal INT NOT NULL CHECK (numero_journal > 0),
 	date_parution DATE NOT NULL,
@@ -34,7 +38,7 @@ CREATE TABLE numeros(
 );
 
 CREATE TABLE auteurs (
-	cle INT PRIMARY KEY AUTOINCREMENT NOT NULL,
+	cle INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	nom TEXT NOT NULL CHECK (length(trim(nom)) > 0),
 	prenom TEXT NOT NULL CHECK (length(trim(nom)) > 0)
 );
@@ -49,10 +53,11 @@ CREATE TABLE aut_art(
 );
 
 CREATE TABLE journaux(
-	nom TEXT PRIMARY KEY NOT NULL CHECK (length(trim(titre)) > 0),
-	cle_editeur INT NOT NULL,
+	nom TEXT PRIMARY KEY NOT NULL CHECK (length(trim(nom)) > 0),
+	cle_editeur TEXT NOT NULL,
 	
-	FOREIGN KEY(cle_editeur) REFERENCES editeurs(editeur) ON DELETE RESTRICT
+	FOREIGN KEY(cle_editeur) REFERENCES editeurs(editeur) ON DELETE RESTRICT,
+	FOREIGN KEY(cle_editeur) REFERENCES editeurs(editeur) ON UPDATE CASCADE
 );
 
 CREATE TABLE editeurs(
