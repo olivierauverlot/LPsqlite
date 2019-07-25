@@ -31,6 +31,7 @@ CREATE TABLE numeros(
 	cle INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	cle_journal TEXT NOT NULL,
 	numero_journal INT NOT NULL CHECK (numero_journal > 0),
+	hs INT DEFAULT 0,
 	date_parution DATE NOT NULL,
 	
 	UNIQUE (cle_journal,numero_journal,date_parution),
@@ -85,5 +86,29 @@ INSERT INTO categories VALUES('Electronique');
 
 INSERT INTO auteurs(nom,prenom) VALUES('Auverlot','Olivier');
 INSERT INTO auteurs(nom,prenom) VALUES('Bera','Clément');
-INSERT INTO auteurs(nom,prenom) VALUES('Cassou','Damien');
 INSERT INTO auteurs(nom,prenom) VALUES('Delplanque','Julien');
+
+INSERT INTO numeros(cle_journal,numero_journal,date_parution) VALUES('GNU/Linux Pratique',114,'2019-07-01');
+
+INSERT INTO numeros(cle_journal,numero_journal,hs,date_parution) VALUES('GNU/Linux Pratique',45,1,'2019-06-01');
+
+
+INSERT INTO articles(titre,cle_categorie,cle_numero,page_debut,page_fin) VALUES(
+	'Le RGPD expliqué aux informaticiens',
+	'Réglementation',
+	1,
+	80,92
+);
+
+INSERT INTO aut_art VALUES(1,1);
+	
+INSERT INTO articles(titre,cle_categorie,cle_numero,page_debut,page_fin) VALUES(
+	'A la découverte de Smalltalk',
+	'Développement',
+	2,
+	112,130
+);
+
+INSERT INTO aut_art VALUES(2,1);
+INSERT INTO aut_art VALUES(3,1);
+
