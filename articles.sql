@@ -8,6 +8,8 @@
 -- Activation nécessaire pragma foreign_keys = ON
 --
 
+pragma foreign_keys = ON;
+
 CREATE TABLE articles(
 	cle INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	titre TEXT NOT NULL CHECK (length(trim(titre)) > 0),
@@ -92,6 +94,11 @@ INSERT INTO numeros(cle_journal,numero_journal,date_parution) VALUES('GNU/Linux 
 
 INSERT INTO numeros(cle_journal,numero_journal,hs,date_parution) VALUES('GNU/Linux Pratique',45,1,'2019-06-01');
 
+INSERT INTO numeros(cle_journal,numero_journal,date_parution) VALUES('GNU/Linux Pratique',111,'2019-01-01');
+
+INSERT INTO numeros(cle_journal,numero_journal,date_parution) VALUES('GNU/Linux Pratique',108,'2019-07-01');
+
+INSERT INTO numeros(cle_journal,numero_journal,date_parution) VALUES('GNU/Linux Magazine',214,'2019-04-01');
 
 INSERT INTO articles(titre,cle_categorie,cle_numero,page_debut,page_fin) VALUES(
 	'Le RGPD expliqué aux informaticiens',
@@ -110,5 +117,43 @@ INSERT INTO articles(titre,cle_categorie,cle_numero,page_debut,page_fin) VALUES(
 );
 
 INSERT INTO aut_art VALUES(2,1);
+INSERT INTO aut_art VALUES(2,3);
+
+INSERT INTO articles(titre,cle_categorie,cle_numero,page_debut,page_fin) VALUES(
+	'Utiliser des applications Android sous Chrome OS',
+	'Système',
+	3,
+	86,91
+);
+
 INSERT INTO aut_art VALUES(3,1);
+
+INSERT INTO articles(titre,cle_categorie,cle_numero,page_debut,page_fin) VALUES(
+	'A la découverte de Basic',
+	'Développement',
+	4,
+	58,66
+);
+
+INSERT INTO aut_art VALUES(4,1);
+
+
+INSERT INTO articles(titre,cle_categorie,cle_numero,page_debut,page_fin) VALUES(
+	'Rédiger avec Markdown',
+	'Outils',
+	4,
+	28,35
+);
+
+INSERT INTO aut_art VALUES(5,1);
+
+INSERT INTO articles(titre,cle_categorie,cle_numero,page_debut,page_fin) VALUES(
+	'Faites vos jeux avec Pharo',
+	'Développement',
+	5,
+	86,91
+);
+
+INSERT INTO aut_art VALUES(6,1);
+INSERT INTO aut_art VALUES(6,2);
 
