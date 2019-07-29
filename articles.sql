@@ -59,6 +59,7 @@ CREATE TABLE journaux(
 	nom TEXT PRIMARY KEY NOT NULL CHECK (length(trim(nom)) > 0),
 	cle_editeur TEXT NOT NULL,
 	
+	UNIQUE(nom,cle_editeur),
 	FOREIGN KEY(cle_editeur) REFERENCES editeurs(editeur) ON DELETE RESTRICT,
 	FOREIGN KEY(cle_editeur) REFERENCES editeurs(editeur) ON UPDATE CASCADE
 );
@@ -67,6 +68,33 @@ CREATE TABLE editeurs(
 	editeur TEXT PRIMARY KEY NOT NULL
 );
 
+--
+-- Création des vues
+--
+
+-- Liste des articles avec plusieurs auteurs
+CREATE VIEW plusieurs_auteurs AS
+	SELECT articles.titre
+	FROM articles,aut_art,auteurs
+	WHERE articles.cle = aut_art.cle_article
+	AND auteurs.cle = aut_art.cle_auteur
+	GROUP BY articles.cle
+	HAVING COUNT(auteurs.cle) > 1;
+
+-- concaténation nom et prénom d'un auteur
+CREATE VIEW nom_prenom_auteur AS
+	SELECT auteurs.cle,(auteurs.nom || ' ' || auteurs.prenom) AS nom_prenom FROM auteurs;
+
+-- Nombre d'articles par auteur
+-- on montre qu'un vue peut dépendre d'une autre vue
+CREATE VIEW repartition_par_auteur AS
+	SELECT nom_prenom,COUNT(articles.cle) AS nombre_articles
+	FROM articles,aut_art,nom_prenom_auteur
+	WHERE articles.cle = aut_art.cle_article
+	AND nom_prenom_auteur.cle = aut_art.cle_auteur
+	GROUP BY nom_prenom
+	ORDER BY nombre_articles DESC;
+	
 --
 -- Initialisation du contenu des tables
 --
