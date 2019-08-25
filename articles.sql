@@ -26,7 +26,7 @@ CREATE TABLE articles(
 
 
 CREATE TABLE categories(
-	categorie TEXT PRIMARY KEY NOT NULL
+	categorie TEXT PRIMARY KEY NOT NULL CHECK (length(trim(categorie)) > 0)
 );
 
 CREATE TABLE numeros(
@@ -37,13 +37,14 @@ CREATE TABLE numeros(
 	date_parution DATE NOT NULL,
 	
 	UNIQUE (cle_journal,numero_journal,date_parution),
-	FOREIGN KEY(cle_journal) REFERENCES journaux(nom) ON DELETE RESTRICT
+	FOREIGN KEY(cle_journal) REFERENCES journaux(nom) ON DELETE RESTRICT,
+	FOREIGN KEY(cle_journal) REFERENCES journaux(nom) ON UPDATE CASCADE
 );
 
 CREATE TABLE auteurs (
 	cle INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	nom TEXT NOT NULL CHECK (length(trim(nom)) > 0),
-	prenom TEXT NOT NULL CHECK (length(trim(nom)) > 0)
+	prenom TEXT NOT NULL CHECK (length(trim(prenom)) > 0)
 );
 
 CREATE TABLE aut_art(
@@ -65,7 +66,7 @@ CREATE TABLE journaux(
 );
 
 CREATE TABLE editeurs(
-	editeur TEXT PRIMARY KEY NOT NULL
+	editeur TEXT PRIMARY KEY NOT NULL CHECK (length(trim(editeur)) > 0)
 );
 
 --
