@@ -1,9 +1,9 @@
 
---
+-- 
 -- Base articles.sql pour SQLite
 -- Auteur: Olivier Auverlot
 --
--- sqlite3 articles.db < articles.sql
+-- sqlite3 base.db < articles.sql
 --
 -- Activation nécessaire pragma foreign_keys = ON
 --
@@ -95,7 +95,31 @@ CREATE VIEW repartition_par_auteur AS
 	AND nom_prenom_auteur.cle = aut_art.cle_auteur
 	GROUP BY nom_prenom
 	ORDER BY nombre_articles DESC;
-	
+
+--
+-- Modification de la table auteur
+-- pour ajouter un compteur sur le nombre d'articles
+-- qu'il a écrit
+--
+ALTER TABLE auteurs ADD COLUMN nom_prenom TEXT;
+
+--
+-- Définition d'un trigger AFTER pour mettre à jour
+-- le nombre d'articles écrit par un auteur
+-- 
+CREATE TRIGGER t_insert_nom_prenom 
+AFTER INSERT ON auteurs FOR EACH ROW
+BEGIN
+	UPDATE auteurs SET nom_prenom = upper(nom) || ' ' || upper(prenom) WHERE cle = NEW.cle; 
+END;
+
+CREATE TRIGGER t_update_nom_prenom 
+AFTER UPDATE ON auteurs FOR EACH ROW
+BEGIN
+	UPDATE auteurs SET nom_prenom = upper(nom) || ' ' || upper(prenom) WHERE cle = NEW.cle; 
+END;
+
+
 --
 -- Initialisation du contenu des tables
 --
