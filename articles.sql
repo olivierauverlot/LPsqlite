@@ -1,5 +1,5 @@
 
--- 
+--
 -- Base articles.sql pour SQLite
 -- Auteur: Olivier Auverlot
 --
@@ -51,9 +51,9 @@ CREATE TABLE aut_art(
 	cle_article INT NOT NULL,
 	cle_auteur INT NOT NULL,
 	
-	PRIMARY KEY(cle_article,cle_auteur),
-	FOREIGN KEY(cle_article) REFERENCES articles(cle) ON DELETE RESTRICT,
-	FOREIGN KEY(cle_auteur) REFERENCES auteurs(cle) ON DELETE RESTRICT
+	UNIQUE(cle_article,cle_auteur),
+	FOREIGN KEY(cle_article) REFERENCES articles(cle) ON DELETE CASCADE,
+	FOREIGN KEY(cle_auteur) REFERENCES auteurs(cle) ON DELETE CASCADE
 );
 
 CREATE TABLE journaux(
@@ -106,38 +106,38 @@ ALTER TABLE auteurs ADD COLUMN nom_prenom TEXT;
 --
 -- Définition d'un trigger AFTER pour mettre à jour
 -- le nombre d'articles écrit par un auteur
--- 
-CREATE TRIGGER t_insert_nom_prenom 
+--
+CREATE TRIGGER t_insert_nom_prenom
 AFTER INSERT ON auteurs FOR EACH ROW
 BEGIN
-	UPDATE auteurs SET nom_prenom = upper(nom) || ' ' || upper(prenom) WHERE cle = NEW.cle; 
+	UPDATE auteurs SET nom_prenom = upper(nom) || ' ' || upper(prenom) WHERE cle = NEW.cle;
 END;
 
-CREATE TRIGGER t_update_nom_prenom 
+CREATE TRIGGER t_update_nom_prenom
 AFTER UPDATE ON auteurs FOR EACH ROW
 BEGIN
-	UPDATE auteurs SET nom_prenom = upper(nom) || ' ' || upper(prenom) WHERE cle = NEW.cle; 
+	UPDATE auteurs SET nom_prenom = upper(nom) || ' ' || upper(prenom) WHERE cle = NEW.cle;
 END;
 
 
 --
 -- Initialisation du contenu des tables
 --
-INSERT INTO categories VALUES('Divers');
 
 INSERT INTO editeurs VALUES('Éditions Diamond');
 
-INSERT INTO journaux VALUES('GNU/Linux Magazine','Éditions Diamond');
-INSERT INTO journaux VALUES('GNU/Linux Pratique','Éditions Diamond');
-INSERT INTO journaux VALUES('MISC','Éditions Diamond');
-INSERT INTO journaux VALUES('Hackable Magazine','Éditions Diamond');
-
+INSERT INTO categories VALUES('Divers');
 INSERT INTO categories VALUES('Développement');
 INSERT INTO categories VALUES('Système');
 INSERT INTO categories VALUES('Outils');
 INSERT INTO categories VALUES('Réglementation');
 INSERT INTO categories VALUES('Sécurité');
 INSERT INTO categories VALUES('Electronique');
+
+INSERT INTO journaux VALUES('GNU/Linux Magazine','Éditions Diamond');
+INSERT INTO journaux VALUES('GNU/Linux Pratique','Éditions Diamond');
+INSERT INTO journaux VALUES('MISC','Éditions Diamond');
+INSERT INTO journaux VALUES('Hackable Magazine','Éditions Diamond');
 
 INSERT INTO auteurs(nom,prenom) VALUES('Auverlot','Olivier');
 INSERT INTO auteurs(nom,prenom) VALUES('Bera','Clément');
