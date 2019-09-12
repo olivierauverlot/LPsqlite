@@ -98,8 +98,8 @@ CREATE VIEW repartition_par_auteur AS
 
 --
 -- Modification de la table auteur
--- pour ajouter un compteur sur le nombre d'articles
--- qu'il a écrit
+-- pour stocker le nom et le prénom
+-- en majuscules
 --
 ALTER TABLE auteurs ADD COLUMN nom_prenom TEXT;
 
@@ -136,7 +136,7 @@ INSERT INTO categories VALUES('Electronique');
 
 INSERT INTO journaux VALUES('GNU/Linux Magazine','Éditions Diamond');
 INSERT INTO journaux VALUES('GNU/Linux Pratique','Éditions Diamond');
-INSERT INTO journaux VALUES('MISC','Éditions Diamond');
+INSERT INTO journaux VALUES('misc','Éditions Diamond');
 INSERT INTO journaux VALUES('Hackable Magazine','Éditions Diamond');
 
 INSERT INTO auteurs(nom,prenom) VALUES('Auverlot','Olivier');
