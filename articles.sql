@@ -8,8 +8,6 @@
 -- Activation nécessaire pragma foreign_keys = ON
 --
 
-pragma foreign_keys = ON;
-
 CREATE TABLE articles(
 	cle INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	titre TEXT NOT NULL CHECK (length(trim(titre)) > 0),
