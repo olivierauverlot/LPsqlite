@@ -17,8 +17,9 @@ CREATE TABLE articles(
 	page_fin INT NOT NULL,
 	
 	CHECK (page_debut > 0 and page_fin > page_debut),
-	FOREIGN KEY(cle_categorie) REFERENCES categories(categorie) ON DELETE SET DEFAULT,
-	FOREIGN KEY(cle_categorie) REFERENCES categories(categorie) ON UPDATE CASCADE,
+	FOREIGN KEY(cle_categorie) REFERENCES categories(categorie) 
+		ON DELETE SET DEFAULT
+		ON UPDATE CASCADE,
 	FOREIGN KEY(cle_numero) REFERENCES numeros(cle) ON DELETE RESTRICT
 );
 
@@ -35,8 +36,9 @@ CREATE TABLE numeros(
 	date_parution DATE NOT NULL,
 	
 	UNIQUE (cle_journal,numero_journal,date_parution),
-	FOREIGN KEY(cle_journal) REFERENCES journaux(nom) ON DELETE RESTRICT,
-	FOREIGN KEY(cle_journal) REFERENCES journaux(nom) ON UPDATE CASCADE
+	FOREIGN KEY(cle_journal) REFERENCES journaux(nom) 
+		ON DELETE RESTRICT
+		ON UPDATE CASCADE
 );
 
 CREATE TABLE auteurs (
@@ -59,8 +61,9 @@ CREATE TABLE journaux(
 	cle_editeur TEXT NOT NULL,
 	
 	UNIQUE(nom,cle_editeur),
-	FOREIGN KEY(cle_editeur) REFERENCES editeurs(editeur) ON DELETE RESTRICT,
-	FOREIGN KEY(cle_editeur) REFERENCES editeurs(editeur) ON UPDATE CASCADE
+	FOREIGN KEY(cle_editeur) REFERENCES editeurs(editeur) 
+		ON DELETE RESTRICT
+		ON UPDATE CASCADE
 );
 
 CREATE TABLE editeurs(
